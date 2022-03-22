@@ -7,42 +7,81 @@
 # in practice a sequance can be completed in many ways, assume that the equation used is a Polynomial, and find the simplest(smallest degree) equation possible, that leaves you with a single unique solution.
 
 
-seq = [6, 17, 88, 321, 866]
-k = len(seq)
-if len(seq) == 5:
-    for p in range(-10, 21):
-        for q in range(-10, 21):
-            for z in range(-10, 21):
-                for v in range(-10, 21):
-                    if (p + q + z + v == seq[1]-seq[0]) and (p * 16 + q * 8 + z * 4 + v * 2 == seq[2]-seq[0]) and\
-                        (p * 81 + q * 27 + z * 9 + v * 3 == seq[3]-seq[0]) and (p * 256 + q * 64 + z * 16 + v * 4 == seq[4]-seq[0]):
-                            quest = [(p * i ** (k - 1)) + (q * i ** (k - 2)) + (z * i ** (k - 3)) + (v * i ** (k - 4)) + seq[0] for i in range(10)]
-print(quest)
+# seq = [6, 17, 88, 321, 866]
+# k = len(seq)
+# if len(seq) == 5:
+#     for p in range(-10, 21):
+#         for q in range(-10, 21):
+#             for z in range(-10, 21):
+#                 for v in range(-10, 21):
+#                     if (p + q + z + v == seq[1]-seq[0]) and (p * 16 + q * 8 + z * 4 + v * 2 == seq[2]-seq[0]) and\
+#                         (p * 81 + q * 27 + z * 9 + v * 3 == seq[3]-seq[0]) and (p * 256 + q * 64 + z * 16 + v * 4 == seq[4]-seq[0]):
+#                             quest = [(p * i ** (k - 1)) + (q * i ** (k - 2)) + (z * i ** (k - 3)) + (v * i ** (k - 4)) + seq[0] for i in range(10)]
+# print(quest)
+#
+# seq = [1, 1, 1, 7]
+# k = len(seq)
+# if len(seq) == 4:
+#     for q in range(-10, 21):
+#         for z in range(-10, 21):
+#             for v in range(-10, 21):
+#                 if (q + z + v == seq[1]-seq[0]) and (q * 8 + z * 4 + v * 2 == seq[2]-seq[0]) and (q * 27 + z * 9 + v * 3 == seq[3]-seq[0]):
+#                     quest = [(q * i ** (k - 1)) + (z * i ** (k - 2)) + (v * i ** (k - 3)) + seq[0] for i in range(10)]
+# print(quest)
+#
+#
+#
+# seq = [2, 4, 6]
+# if len(seq) <= 3:
+#     quest = [((seq[1] - seq[0]) * i) + seq[0] for i in range(10)]
+# print(quest)
+#
+# seq = [5]
+# if len(seq) == 1:
+#     quest = [seq[0] for i in range(10)]
+# print(quest)
+#
+# seq = []
+# if len(seq) == 0:
+#     quest = [0 for i in range(10)]
+# print(quest)
 
 
-seq = [1, 1, 1, 7]
-k = len(seq)
-if len(seq) == 4:
-    for q in range(-10, 21):
-        for z in range(-10, 21):
-            for v in range(-10, 21):
-                if (q + z + v == seq[1]-seq[0]) and (q * 8 + z * 4 + v * 2 == seq[2]-seq[0]) and (q * 27 + z * 9 + v * 3 == seq[3]-seq[0]):
-                    quest = [(q * i ** (k - 1)) + (z * i ** (k - 2)) + (v * i ** (k - 3)) + seq[0] for i in range(10)]
-print(quest)
+# Валидное решение на первые 10 тестов(степерь ниже 5)
 
+def solve_sequence(seq):
+    def solution(n):
+        k = len(seq)
+        if len(seq) == 5:
+            for p in range(-10, 21):
+                for q in range(-10, 21):
+                    for z in range(-10, 21):
+                        for v in range(-10, 21):
+                            if (p + q + z + v == seq[1] - seq[0]) and (
+                                    p * 16 + q * 8 + z * 4 + v * 2 == seq[2] - seq[0]) and \
+                                    (p * 81 + q * 27 + z * 9 + v * 3 == seq[3] - seq[0]) and (
+                                    p * 256 + q * 64 + z * 16 + v * 4 == seq[4] - seq[0]):
+                                quest = [
+                                    (p * n ** (k - 1)) + (q * n ** (k - 2)) + (z * n ** (k - 3)) + (v * n ** (k - 4)) +
+                                    seq[0]]
 
+        elif len(seq) == 4:
+            for q in range(-10, 21):
+                for z in range(-10, 21):
+                    for v in range(-10, 21):
+                        if (q + z + v == seq[1] - seq[0]) and (q * 8 + z * 4 + v * 2 == seq[2] - seq[0]) and (
+                                q * 27 + z * 9 + v * 3 == seq[3] - seq[0]):
+                            quest = [(q * n ** (k - 1)) + (z * n ** (k - 2)) + (v * n ** (k - 3)) + seq[0]]
 
-seq = [2, 4, 6]
-if len(seq) <= 3:
-    quest = [((seq[1] - seq[0]) * i) + seq[0] for i in range(10)]
-print(quest)
+        elif 1 < len(seq) < 4:
+            quest = [((seq[1] - seq[0]) * n) + seq[0]]
 
-seq = [5]
-if len(seq) == 1:
-    quest = [seq[0] for i in range(10)]
-print(quest)
+        elif len(seq) == 1:
+            quest = [seq[0]]
 
-seq = []
-if len(seq) == 0:
-    quest = [0 for i in range(10)]
-print(quest)
+        elif len(seq) == 0:
+            quest = [0]
+
+        return quest[0]
+
+    return solution
