@@ -58,13 +58,20 @@ def solve_sequence(seq):
             korni = korni_func(lst, x, b)
 
             # Ищем значение n-го члена списка
+            n = 7
             count = 0
             for i in range(k - 1):
                 count += (korni[i] * n ** (k - 1 - i))
             count += seq[0]
 
-        return count
+        return print(count)
 
     return solution
 
 
+sequences = [
+    ([2,4,6], [2,4,6,8,10,12,14,16,18,20]),
+]
+for initial_sequence, first_ten_terms in sequences:
+    solution_function = solve_sequence(initial_sequence)
+    solution_function(0)
