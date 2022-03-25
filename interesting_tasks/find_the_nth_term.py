@@ -1,6 +1,5 @@
 # Задача Codewars: 5 kyu
 # given the first few terms of a sequence, can you figure out the formula that was used to generate these numbers, so we can find any term in the sequence?
-#
 # Task
 # write a function that accepts an array of number(the first few terms of a sequence)
 # your function should return a mapping function that accepts an integer(n) and then return the nth term of the sequence, where zero is the first term.
@@ -10,8 +9,8 @@
 # Валидное решение на все тесты, кроме самого жесткого по скорости
 
 
-# Функция поиска детерминанта матрицы
 def determinant(matrix, mul):
+    """Функция поиска детерминанта матрицы"""
     width = len(matrix)
     if width == 1:
         return mul * matrix[0][0]
@@ -24,8 +23,9 @@ def determinant(matrix, mul):
             answer = answer + mul * determinant(m, sign * matrix[0][i])
     return answer
 
-# Функция поиска корней матрицы
+
 def korni_func(lst, x, b):
+    """Функция поиска корней матрицы"""
     some_list = []
     for j in range(len(lst)):
         lst_x = list(map(list, lst))
@@ -37,7 +37,9 @@ def korni_func(lst, x, b):
 
 
 def solve_sequence(seq):
+    """Функция поиска формулы образования последовательности"""
     def solution(n):
+        """Функция поиска n-го члена последовательности"""
         if len(seq) == 0:
             count = 0
         else:
@@ -69,9 +71,7 @@ def solve_sequence(seq):
     return solution
 
 
-sequences = [
-    ([2,4,6], [2,4,6,8,10,12,14,16,18,20]),
-]
+sequences = [([2, 4, 6], [2, 4, 6, 8, 10, 12, 14, 16, 18, 20])]
 for initial_sequence, first_ten_terms in sequences:
     solution_function = solve_sequence(initial_sequence)
     solution_function(0)
