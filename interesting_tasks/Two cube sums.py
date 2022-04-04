@@ -23,4 +23,3 @@ def has_two_cube_sums(n):
     else:
         return False
 print(has_two_cube_sums(4105))
-
