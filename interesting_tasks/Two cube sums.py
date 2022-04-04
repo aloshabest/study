@@ -4,7 +4,7 @@
 
 def has_two_cube_sums(n):
     lst = []
-    def sumSquare(n):
+    def sumCube(n):
         s = dict()
         for i in range(n):
             if i ** 3 > n:
@@ -16,7 +16,7 @@ def has_two_cube_sums(n):
                     lst.append(i)
 
     for i in range(2):
-        sumSquare(n)
+        sumCube(n)
 
     if len(lst) >= 4:
         return True
