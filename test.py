@@ -1,26 +1,21 @@
-#Задача Codewars: 6 kyu.
-#which checks if a given number n can be written as the sum of two cubes in two different ways: n = a³+b³ = c³+d³.
-# All the numbers a, b, c and d should be different and greater than 0.
+import requests, csv
+from bs4 import BeautifulSoup
 
-def has_two_cube_sums(n):
-    lst = []
-    def sumSquare(n):
-        s = dict()
-        for i in range(n):
-            if i ** 3 > n:
-                break
-            if i not in lst:
-                s[i ** 3] = 1
-                if (n - i ** 3) in s.keys():
-                    lst.append((n - i ** 3) ** (1 / 2))
-                    lst.append(i)
 
-    for i in range(2):
-        sumSquare(n)
+response = requests.get('http://quotes.toscrape.com/')
+html_data = BeautifulSoup(response.text)
+quotes = html_data.find_all(class_='quote')
 
-    if len(lst) >= 4:
-        return True
-    else:
-        return False
-print(has_two_cube_sums(4105))
+for quote in quotes:
+    print(quote.find(class_='text').get_text())
+    print(quote.find(class_='author').get_text())
+    print(quote.find(class_='keywords')['content'])
 
+with open("bs4.csv", "w") as f:
+    csv_writer = csv.writer(f)
+    csv_writer.writerow(['Text', 'Aithor', 'Keywords'])
+    for quote in quotes:
+        text = quote.find(class_='text').get_text()
+        author = quote.find(class_='author').get_text()
+        keywords = quote.find(class_='keywords')['content']
+        csv_writer.writerow([text, author, keywords])
