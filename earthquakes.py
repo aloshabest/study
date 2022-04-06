@@ -15,7 +15,7 @@ response = requests.get(url, headers={'Accept': 'application/json'}, params={
 
 
 def sql_earthquakes(lst):
-        conn = sqlite3.connect("C:\\Users\\niisi 2th\\PycharmProjects\\number_guesser\\sql\\earthquakes.db")
+        conn = sqlite3.connect("earthquakes.db")
         c = conn.cursor()
         c.execute("CREATE TABLE earthquakes (place TEXT, magnitude TEXT);")
         c.executemany("INSERT INTO earthquakes VALUES (?, ?)", lst)
@@ -23,7 +23,7 @@ def sql_earthquakes(lst):
         conn.close()
 
 def print_sql_earthquakes():
-        conn = sqlite3.connect("C:\\Users\\niisi 2th\\PycharmProjects\\number_guesser\\sql\\earthquakes.db")
+        conn = sqlite3.connect("earthquakes.db")
         c = conn.cursor()
         c.execute("SELECT * FROM earthquakes;")
         for row in c:
@@ -41,6 +41,6 @@ for i in range(len(earth_lst)):
         lst.append((place, mag))
         print(f"{i}. Place: {place}, Magnitude: {mag}.")
 
-#sql_earthquakes(lst)
+sql_earthquakes(lst)
 print()
 print_sql_earthquakes()
