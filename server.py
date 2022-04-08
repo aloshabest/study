@@ -48,7 +48,7 @@ class StorageDriver:
             raise StorageDriverError
 
 
-class MetricsStorageServerProtocol(asyncio.Protocol):
+class ClientServerProtocol(asyncio.Protocol):
     """Класс для реализации сервера при помощи asyncio"""
     storage = Storage()
     sep = '\n'
@@ -90,10 +90,10 @@ class MetricsStorageServerProtocol(asyncio.Protocol):
         self.transport.write(response.encode())
 
 
-def run_server(host, port):
+def run_server(host='127.0.0.1', port=8888):
 
     loop = asyncio.get_event_loop()
-    coro = loop.create_server(MetricsStorageServerProtocol, host, port)
+    coro = loop.create_server(ClientServerProtocol, host, port)
     server = loop.run_until_complete(coro)
 
     try:
@@ -105,4 +105,6 @@ def run_server(host, port):
     loop.run_until_complete(server.wait_closed())
     loop.close()
 
-run_server("127.0.0.1", 8888)
+
+if __name__ == "__main__":
+    run_server("127.0.0.1", 8888)
