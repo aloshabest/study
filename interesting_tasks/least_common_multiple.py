@@ -2,7 +2,6 @@
 #Write a function that calculates the least common multiple of its arguments; each argument is assumed to be a non-negative integer.
 #In the case that there are no arguments (or the provided array in compiled languages is empty), return 1.
 
-
 def __gcd(a, b):
     if (a == 0):
         return b
@@ -25,6 +24,9 @@ def lcm(*args):
     else:
         return LcmOfArray(args, 0)
 
+
 print(lcm(2, 5))
+
 print(lcm(2, 3, 4))
+
 print(lcm(0, 1, 0))
