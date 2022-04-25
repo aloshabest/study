@@ -1,40 +1,31 @@
+#Запоминание принятых аргументов и вывод без надписи Calculating...
+#Дополнен ограничением в 3 значения
 
-# with open("C:\\Users\\niisi 2th\\Downloads\\nums.txt", "r") as file:
-#     s = ''
-#     for line in file:
-#         for i in line:
-#             if i.isdigit():
-#                 s += i
-#             else:
-#                 s += ' '
-#     print(sum(list(map(int, s.split()))))
+from functools import wraps
 
-
-
-
-def make_module(step=1):
-    return {'inc': lambda x: x + step, 'dec': lambda x: x - step}
-
-m = make_module()
-print(m['inc'](10))
-print(m['dec'](15))
-
-print()
-
-
-def memoized(func):
+def memoized(n):
     memory = {}
-    def inner(*args):
-        if args not in memory:
-            memory[args] = func(*args)
-        return memory[args]
-    return inner
-@memoized
+    def wrapper(func):
+        @wraps(func)
+        def inner(*args):
+            if args not in memory:
+                memory[args] = func(*args)
+            if len(memory) == n:
+                memory.pop(list(memory)[0])
+            return memory[args]
+        return inner
+    return wrapper
+
+@memoized(3)
 def f(x):
     print("Calculating...")
     return x * 10
+
+
 print(f(1))
 print(f(1))
+print(f(2))
+print(f(3))
+print(f(4))
 print(f(1))
-print(f(42))
-print(f(42))
+
