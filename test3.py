@@ -1,31 +1,20 @@
-#Запоминание принятых аргументов и вывод без надписи Calculating...
-#Дополнен ограничением в 3 значения
+import re
 
-from functools import wraps
+with open("C:\\Users\\niisi 2th\\Downloads\\cyrillic.txt", "r", encoding='UTF-8') as file:
 
-def memoized(n):
-    memory = {}
-    def wrapper(func):
-        @wraps(func)
-        def inner(*args):
-            if args not in memory:
-                memory[args] = func(*args)
-            if len(memory) == n:
-                memory.pop(list(memory)[0])
-            return memory[args]
-        return inner
-    return wrapper
+    lst = [line.split() for line in file]
 
-@memoized(3)
-def f(x):
-    print("Calculating...")
-    return x * 10
+    have = []
+    haven_t = []
+    for i in range(len(lst)):
+        if len(lst[i]) > 0:
+            if lst[i][0] == 'def':
+                if len(lst[i-1]) > 0 and lst[i-1][0] == '#' and i != 0:
+                    s = lst[i][1].split('(')
+                    have.append(s[0])
+                else:
+                    s = lst[i][1].split('(')
+                    haven_t.append(s[0])
 
 
-print(f(1))
-print(f(1))
-print(f(2))
-print(f(3))
-print(f(4))
-print(f(1))
-
+    print(*haven_t, sep='\n')
