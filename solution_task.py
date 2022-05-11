@@ -30,24 +30,23 @@ def interactive(x):
         return wrapper
     return bread
 
-def asks(x, y):
+def asks(k, n):
     def ingredients(func):
         def wrapper(*args):
-            lst = []
-            z = input(y)
-            lst.append(z)
-            print(lst)
-            func(z)
+            num = input(n)
+            print(f"{k} = {num}")
+            print(f'{func(*args, num)}')
+            return ''
         return wrapper
     return ingredients
 
 @interactive('Calculator')
 @asks('x', 'Enter first number: ')
 @asks('y', 'Enter second number: ')
-def sandwich(food="--ветчина--"):
-    print(food)
+def calc(x, y):
+   return int(x)+int(y)
 
-print(sandwich())
+calc()
 
 
 
