@@ -187,7 +187,38 @@ print(a, b, c)
 
 
 
+
 print()
 print('------------------------------------')
 print()
+
+
+# Разработайте класс с "полной инкапсуляцией", доступ к атрибутам которого и изменение данных реализуются через вызовы методов.
+# В объектно-ориентированном программировании принято имена методов для извлечения данных начинать со слова get (взять), а имена методов,
+# в которых свойствам присваиваются значения, – со слова set (установить). Например, get_field, set_field.
+
+class Car:
+
+    def __init__(self, model, year, engine):
+        self.__model = model
+        self.__year = year
+        self.__engine = engine
+
+    def set_value(self, attr, value):
+        setattr(self, f"_{self.__class__.__name__}__{attr}", value)
+
+    def get_value(self, other):
+        return getattr(self, f"_{self.__class__.__name__}__{other}")
+
+    def __setattr__(self, attr, value):
+        if attr in ('_Car__model', '_Car__year', '_Car__engine'):
+            self.__dict__[attr] = value
+        else:
+            raise AttributeError
+
+Toyota = Car('Camry', 2020, 'petrol')
+print(Toyota.get_value('engine'))
+print(Toyota.get_value('year'))
+Toyota.set_value('year', 2022)
+print(Toyota.get_value('year'))
 
