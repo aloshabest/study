@@ -49,11 +49,11 @@ class Human:
         self.__house = None
 
     def info(self):
-        return print(f"name - {self.name}, age - {self.age}, money - {self.__money}, house - {self.__house}")
+        print(f"name - {self.name}, age - {self.age}, money - {self.__money}, house - {self.__house}")
 
     @staticmethod
     def default_info():
-        return print(f"default_name - {Human.default_name}, default_age - {Human.default_age}")
+        print(f"default_name - {Human.default_name}, default_age - {Human.default_age}")
 
     def __make_deal(self, house, price):
         self.__money -= price
