@@ -115,13 +115,13 @@ print(p.__dict__)
 
 
 
-
+print('-------------')
 #
 ##
 # Подключение дескрипторов
 ##
 #
-
+print('-------------')
 
 
 
@@ -182,12 +182,7 @@ class Verify:
 
 
     def __set__(self, instance, value):
-        a = f'self.verify' + self.name
-        print(a)
-        exec(a)
-        # if self.name == '_fio':
-        #     print(self.name)
-        #     self.verify_fio(value)
+        eval(f'self.verify' + self.name)(value)
         setattr(instance, self.name, value)
 
 
