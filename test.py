@@ -1,20 +1,39 @@
-def make_decart_point(x, y):
-    return {'x': x, 'y': y}
+class HourClock:
 
-def make_segment(p1, p2):
-    start = p1
-    end = p2
-    return start, end
+    def __init__(self, hour=0):
+        self.hour = hour
 
+    @property
+    def hours(self):
+        return self.hour
 
-def get_mid_piont_of_segment(segment):
-    start = segment[0]
-    end = segment[1]
-    x = (start['x'] + end['x']) / 2
-    y = (start['y'] + end['y']) / 2
-
-    return {'x': x, 'y': y}
+    @hours.setter
+    def hours(self, other):
+        self.hour = other % 12
+        if self.hour < 0:
+            self.hour = 0
 
 
-segment = make_segment(make_decart_point(3, 2), make_decart_point(0, 0))
-print(get_mid_piont_of_segment(segment))
+
+clock = HourClock()
+print(clock.hours)
+clock.hours += 5
+print(clock.hours)
+clock.hours += 5
+print(clock.hours)
+clock.hours += 5
+print(clock.hours)
+clock.hours -= 4
+print(clock.hours)
+
+
+
+
+print('-------------')
+#
+##
+#
+##
+#
+print('-------------')
+
