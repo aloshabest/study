@@ -59,12 +59,37 @@
 
 import random
 
+#Дескриптор для сокращения кода
+#
+# class Desc:
+#     @classmethod
+#     def verify_value(cls, value):
+#         if not isinstance(value, bool):
+#             raise ValueError("недопустимое значение атрибута")
+#
+#     def __set_name__(self, owner, name):
+#         self.name = '__' + name
+#
+#     def __get__(self, instance, owner):
+#         return getattr(instance, self.name)
+#
+#     def __set__(self, instance, value):
+#         if self.name != '__number':
+#             self.verify_value(value)
+#         else:
+#             if value < 0 or value > 8:
+#                  raise ValueError("недопустимое значение атрибута")
+#         setattr(instance, self.name, value)
 
 class Cell:
+    # is_mine = Desc()
+    # number = Desc()
+    # is_open = Desc()
+
     def __init__(self, is_mine=False, number=0, is_open=False):
-        self.__is_mine = is_mine
-        self.__number = number
-        self.__is_open = is_open
+        self.is_mine = is_mine
+        self.number = number
+        self.is_open = is_open
 
     def __bool__(self):
         if self.is_open:
