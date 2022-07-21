@@ -119,7 +119,7 @@ class GamePole:
         self.n = N
         self.m = M
         self.total_mines = total_mines
-        self.__pole_cells = [[Cell() for _ in range(self.n + 2)] for _ in range(self.m + 2)]
+        self.__pole_cells = [[Cell() for _ in range(self.m + 2)] for _ in range(self.n + 2)]
 
     @property
     def pole(self):
@@ -130,15 +130,15 @@ class GamePole:
 
         rng = random.Random()
         while self.total_mines > 0:
-            i = rng.randrange(1, self.m + 1)
-            j = rng.randrange(1, self.n + 1)
+            i = rng.randrange(1, self.n + 1)
+            j = rng.randrange(1, self.m + 1)
             if self.__pole_cells[i][j].is_mine != False:
                 continue
             self.__pole_cells[i][j].is_mine = True
             self.total_mines -= 1
 
-        for i in range(1, self.m + 1):
-            for j in range(1, self.n + 1):
+        for i in range(1, self.n + 1):
+            for j in range(1, self.m + 1):
                 k = 0
                 if self.__pole_cells[i][j].is_mine != True:
                     if self.__pole_cells[i][j + 1].is_mine:
@@ -159,7 +159,7 @@ class GamePole:
                         k += 1
                     self.__pole_cells[i][j].number = k
 
-        self.__pole_cells = self.__pole_cells[1:self.m + 1]
+        self.__pole_cells = self.__pole_cells[1:self.n + 1]
         for i in range(self.n):
             self.__pole_cells[i].pop(0)
             self.__pole_cells[i].pop(-1)
@@ -167,29 +167,29 @@ class GamePole:
     def open_cell(self, i, j):
         if i < 0 or i >= self.n or j < 0 or j >= self.m:
             raise IndexError('некорректные индексы i, j клетки игрового поля')
-        self.__pole_cells[j][i].is_open = True
+        self.__pole_cells[i][j].is_open = True
 
 
     def show_pole(self):
-        for i in range(self.m):
-            for j in range(self.n):
+        for i in range(self.n):
+            for j in range(self.m):
                 print(str(self.__pole_cells[i][j].number).rjust(3), end=' ')
             print()
 
-        for i in range(self.m):
-            for j in range(self.n):
+        for i in range(self.n):
+            for j in range(self.m):
                 print(str(self.__pole_cells[i][j].is_mine).rjust(3), end=' ')
             print()
 
 
-# pole = GamePole(10, 20, 10)
-# pole.init_pole()
-# if pole.pole[0][1]:
-#     pole.open_cell(0, 1)
-# if pole.pole[3][5]:
-#     pole.open_cell(3, 5)
-# pole.open_cell(9, 19)  # генерируется исключение IndexError
-# pole.show_pole()
+pole = GamePole(10, 20, 10)
+pole.init_pole()
+if pole.pole[0][1]:
+    pole.open_cell(0, 1)
+if pole.pole[3][5]:
+    pole.open_cell(3, 5)
+#pole.open_cell(9, 19)  # генерируется исключение IndexError
+pole.show_pole()
 
 p1 = GamePole(10, 20, 10)
 p2 = GamePole(10, 20, 10)
