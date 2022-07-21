@@ -59,7 +59,7 @@
 
 import random
 
-#Дескриптор для сокращения кода
+#Дескриптор для удаления повторения декоратора property
 #
 # class Desc:
 #     @classmethod
@@ -150,52 +150,49 @@ class GamePole:
     def pole(self):
         return self.__pole_cells
 
+
     def init_pole(self):
-        #self.pole = [[Cell() for i in range(self.n + 2)] for i in range(self.m + 2)]
+        """Функция добавление на поле мин и подсчета мин вокруг пустых полей"""
 
         rng = random.Random()
+
+        # Добавление мин:
         while self.total_mines > 0:
             i = rng.randrange(1, self.n + 1)
             j = rng.randrange(1, self.m + 1)
-            if self.__pole_cells[i][j].is_mine != False:
+            if self.__pole_cells[i][j].is_mine:
                 continue
             self.__pole_cells[i][j].is_mine = True
             self.total_mines -= 1
 
+        # Подсчет мин вокруг пустых ячеек:
         for i in range(1, self.n + 1):
             for j in range(1, self.m + 1):
                 k = 0
-                if self.__pole_cells[i][j].is_mine != True:
-                    if self.__pole_cells[i][j + 1].is_mine:
-                        k += 1
-                    if self.__pole_cells[i + 1][j + 1].is_mine:
-                        k += 1
-                    if self.__pole_cells[i + 1][j].is_mine:
-                        k += 1
-                    if self.__pole_cells[i][j - 1].is_mine:
-                        k += 1
-                    if self.__pole_cells[i + 1][j - 1].is_mine:
-                        k += 1
-                    if self.__pole_cells[i - 1][j - 1].is_mine:
-                        k += 1
-                    if self.__pole_cells[i - 1][j + 1].is_mine:
-                        k += 1
-                    if self.__pole_cells[i - 1][j].is_mine:
-                        k += 1
+                for q in range(-1, 2):
+                    for l in range(-1, 2):
+                        ii, jj = q + i, l + j
+                        if self.__pole_cells[ii][jj].is_mine:
+                            k += 1
                     self.__pole_cells[i][j].number = k
 
+        # Удаление лишних ячеек поля:
         self.__pole_cells = self.__pole_cells[1:self.n + 1]
         for i in range(self.n):
             self.__pole_cells[i].pop(0)
             self.__pole_cells[i].pop(-1)
 
     def open_cell(self, i, j):
+        """Функция проверки на корректность индексов для открытия ячейки"""
+
         if i < 0 or i >= self.n or j < 0 or j >= self.m:
             raise IndexError('некорректные индексы i, j клетки игрового поля')
         self.__pole_cells[i][j].is_open = True
 
 
     def show_pole(self):
+        """Функция вывода на экран сначала поля с количеством мин вокруг, а затем поля с указанием есть ли мина в ячейке"""
+
         for i in range(self.n):
             for j in range(self.m):
                 print(str(self.__pole_cells[i][j].number).rjust(3), end=' ')
