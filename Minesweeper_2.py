@@ -279,3 +279,7 @@ for i, row in enumerate(p.pole):
         if not p.pole[i][j].is_mine:
             m = count_mines(p.pole, i, j)
             assert m == p.pole[i][j].number, "неверно подсчитано число мин вокруг клетки"
+
+
+
+
