@@ -38,7 +38,7 @@
 # res = mt[1, 0] # 3
 # res = mt[1, 1] # 4
 
-
+import copy
 
 
 class Matrix:
@@ -82,7 +82,7 @@ class Matrix:
         self.matrix[r][c] = value
 
     def __add__(self, other):
-        new = self.matrix[:]
+        new = copy.deepcopy(self.matrix)
         if not isinstance(other, Matrix):
             for i in range(len(new)):
                 for j in range(len(new[i])):
@@ -97,10 +97,10 @@ class Matrix:
             for i in range(len(new)):
                 for j in range(len(new[i])):
                     new[i][j] += other.matrix[i][j]
-        return new
+        return Matrix(new)
 
     def __sub__(self, other):
-        new = self.matrix[:]
+        new = copy.deepcopy(self.matrix)
         if not isinstance(other, Matrix):
             for i in range(self.cols):
                 for j in range(self.rows):
@@ -115,13 +115,27 @@ class Matrix:
             for i in range(self.cols):
                 for j in range(self.rows):
                     new[i][j] -= other.matrix[i][j]
-        return new
+        return Matrix(new)
 
 
 lst2D = [[1, 2, 3], [4, 5, 6]]
+
 mt = Matrix(lst2D)
-matrix = Matrix(2, 3, 1)
-matrix222 = mt + 10
-print(matrix222)
-matrix333 = mt + matrix
-print(matrix333)
+print('mt.matrix -', mt.matrix)
+mt2 = Matrix(2, 3, 5)
+print("mt2.matrix -", mt2.matrix)
+mt3 = mt + 10
+mt4 = mt + mt2
+mt5 = mt2 + 20
+
+print("mt3 = mt + 10", mt3.matrix)
+print('mt.matrix -', mt.matrix)
+print("mt4 = mt + mt2", mt4.matrix)
+print('mt.matrix -', mt.matrix)
+
+print("mt5 = mt2 + 20", mt5.matrix)
+print("mt2.matrix -", mt2.matrix)
+
+
+
+
